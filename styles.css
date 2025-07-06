@@ -5,6 +5,8 @@
     box-sizing: border-box;
 }
 
+
+
 html {
     scroll-behavior: smooth;
 }
@@ -16,6 +18,82 @@ body {
     color: #ffffff;
     background-color: #000055;
 }
+
+@keyframes orbit { to { transform: rotate3d(0, 0, 1,  360deg); } }
+@keyframes moon  { to { transform: rotate3d(0, 1, 0, -360deg); } }
+
+@property --angle {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+
+@property --z {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes revolve {
+  from {
+    --angle: 0deg;
+    --z: -1;
+  }
+  to {
+    --angle: 360deg;
+    --z: 0;
+  }
+}
+
+.planet, .moon, .satellite, .potato {
+  grid-area: 1 / 1;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.moon1, .satellite1, .potato1 {
+  --x-amplitude: 150px;
+  --y-amplitude: 40px;
+  --x: calc(cos(var(--angle)) * var(--x-amplitude));
+  --y: calc(sin(var(--angle)) * var(--y-amplitude));
+  transform:
+    rotate(var(--rotation))
+    translate(var(--x), var(--y))
+    rotate(calc(var(--rotation) * -1));
+  z-index: calc(var(--z)); /* calc() is for Safari */
+  animation: revolve 6s linear infinite;
+}
+
+.moon1 {
+  --rotation: 0deg;
+  animation-delay: 0s;
+}
+
+.satellite1 {
+  --rotation: 60deg;
+  animation-delay: -2s;
+}
+
+.potato1 {
+  --rotation: 120deg;
+  animation-delay: -4s;
+}
+
+img {
+  display: block;
+}
+
+.planet img {
+  width: 150px;
+}
+
+.moon1, .satellite1, .potato1 {
+  img {
+    width: 50px;
+  }
+}
+
+
 
 /* Navigation */
 .navbar {
@@ -141,9 +219,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60px;
-    height: 60px;
-    background-color: #37c871;
+    background-color: #0f0f0f00;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -155,7 +231,7 @@ body {
 
 .orbit {
     position: absolute;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 60px solid #ff0000;
     border-radius: 50%;
     animation: rotate 10s linear infinite;
 }
@@ -185,13 +261,15 @@ body {
 
 .ball {
     position: absolute;
-    width: 15px;
-    height: 15px;
-    background-color: #37c871;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     top: -7.5px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); background: black;
+  height: 30px;
+  width: 30px;
+  background: radial-gradient(circle at 10px 10px, #ffffff, #000)
 }
 
 .ball2 {
@@ -199,7 +277,7 @@ body {
 }
 
 .ball3 {
-    background-color: #37c871;
+    background-color: #727473;
 }
 
 @keyframes rotate {
