@@ -281,8 +281,8 @@ img {
 
 /* Shape morphing animation */
 .morphing-shape {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     background-color: #00aa44ff;
     border-radius: 50%;
     animation: morph 4s ease-in-out infinite;
@@ -291,7 +291,7 @@ img {
 @keyframes morph {
     0% { border-radius: 50%; }
     25% { border-radius: 0; transform: rotate(45deg); }
-    50% { border-radius: 10px; transform: rotate(90deg); }
+    50% { border-radius: 25px; transform: rotate(90deg); }
     75% { border-radius: 0; transform: rotate(135deg); }
     100% { border-radius: 50%; transform: rotate(180deg); }
 }
